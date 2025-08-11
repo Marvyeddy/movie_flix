@@ -11,9 +11,16 @@ import { Search } from "../assets/icons/icon";
 type SearchBarProps = {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
+  value?: string;
+  onChangeText?: (value: string) => void;
 };
 
-export default function SearchBar({ onPress, style }: SearchBarProps) {
+export default function SearchBar({
+  onPress,
+  style,
+  value,
+  onChangeText,
+}: SearchBarProps) {
   return (
     <View
       className="flex-row items-center gap-[10px] py-[8px] px-[14px] rounded-[30px] bg-['#0F0D23']"
@@ -24,9 +31,9 @@ export default function SearchBar({ onPress, style }: SearchBarProps) {
         onPress={onPress}
         placeholder="Search through 300+ movies online"
         placeholderTextColor={"#A8B5DB"}
-        className="flex-1 text-['#A8B5DB]"
-        value=""
-        onChange={() => {}}
+        className="flex-1 text-['#A8B5DB']"
+        value={value}
+        onChangeText={onChangeText}
       />
     </View>
   );

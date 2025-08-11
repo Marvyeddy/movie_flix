@@ -1,13 +1,13 @@
 import { Link } from "expo-router";
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Star } from "../assets/icons/icon";
 
 export default function MovieCard({
   title,
-  popularity,
   poster_path,
   release_date,
-  vote_count,
+  vote_average,
   id,
 }: Movie) {
   return (
@@ -28,6 +28,19 @@ export default function MovieCard({
         <Text className="text-white text-sm font-bold mt-2" numberOfLines={1}>
           {title}
         </Text>
+
+        <View className="flex-row items-center gap-[2px] mt-[9px] mb-[6px]">
+          <Star />
+          <Text className="text-white text-xs font-bold">
+            {Math.round(vote_average / 2)}
+          </Text>
+        </View>
+
+        <View>
+          <Text className="text-[#9CA4AB] font-bold text-xs">
+            {release_date?.split("-")[0]}
+          </Text>
+        </View>
       </TouchableOpacity>
     </Link>
   );
