@@ -4,12 +4,12 @@ import MovieCard from "@/src/components/MovieCard";
 import SearchBar from "@/src/components/SearchBar";
 import useFetch from "@/src/hooks/useFetch";
 import { fetchMovies } from "@/src/services/api";
-import { useRouter } from "expo-router";
+import { updateMovieCount } from "@/src/services/appwrite";
+
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
 
 export default function Search() {
-  const router = useRouter();
   const [text, setText] = useState("");
 
   const {
@@ -21,15 +21,19 @@ export default function Search() {
   } = useFetch(() => fetchMovies({ query: text }), false);
 
   useEffect(() => {
-    const newMovies = setTimeout(async () => {
+    const handler = setTimeout(() => {
       if (text.trim()) {
-        await loadMovies();
+        loadMovies().then((result) => {
+          if (Array.isArray(result) && result.length > 0) {
+            updateMovieCount(text, result[0]);
+          }
+        });
       } else {
         reset();
       }
-    }, 500);
+    }, 1000);
 
-    return () => clearTimeout(newMovies);
+    return () => clearTimeout(handler);
   }, [text]);
 
   return (

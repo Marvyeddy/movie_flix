@@ -15,7 +15,7 @@ export default function MovieCard({
       href={{ pathname: "/movies/[id]", params: { id: String(id) } }}
       asChild
     >
-      <TouchableOpacity className="w-[30%]">
+      <TouchableOpacity className="w-[30%] relative">
         <Image
           source={{
             uri: poster_path
